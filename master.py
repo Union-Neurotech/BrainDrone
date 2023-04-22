@@ -3,6 +3,7 @@ import subprocess
 
 
 def start_program(filename):
+    
     current_dir = os.getcwd()
     program_path = os.path.join(current_dir, filename)  
 
@@ -16,7 +17,7 @@ def start_program(filename):
 if __name__ == "__main__":
 
     start_program("startDrone.py")
-    start_program("startEEG.py")
+    # start_program("startEEG.py")
     start_program("startUI.py")
     
 
