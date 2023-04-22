@@ -1,9 +1,8 @@
 import Image from "next/image";
 import { Roboto_Mono } from "next/font/google";
 import { useState } from "react";
+import { io } from "socket.io-client";
 const inter = Roboto_Mono({ subsets: ["latin"] });
-
-//adding a slider
 
 export default function Home() {
   const [connectedHeadset, setConnectedHeadset] = useState(true);
@@ -13,6 +12,7 @@ export default function Home() {
   const [headsetData, setHeadsetData] = useState(0);
   const [progressPercentage, setProgressPercentage] = useState(70);
   const [pressedKey, setPressedKey] = useState("");
+  const socket = io("http://localhost:8000");
 
   const handleKeyDown = (event) => {
     if (event.key === "w") {
@@ -31,23 +31,7 @@ export default function Home() {
   };
 
   const connectToDevice = async (deviceName) => {
-    try {
-      const device = await navigator.bluetooth.requestDevice({
-        filters: [{ name: deviceName }],
-      });
-
-      const server = await device.gatt.connect();
-      // Do something with the server object
-      console.log("Connected to device:", deviceName);
-
-      if (deviceName === "Headset") {
-        setConnectedHeadset(true);
-      } else if (deviceName === "Drone") {
-        setConnectedDrone(true);
-      }
-    } catch (error) {
-      console.error("Error connecting to device:", error);
-    }
+    socket.emit("command", "connect-device");
   };
   return (
     <main
@@ -169,12 +153,7 @@ export default function Home() {
                 </button>
               </div>
             ) : (
-              <button
-                className="bg-blue-500 text-white font-semibold p-2 rounded-xl w-64 mt-4 hover:scale-110 duration-150"
-                onClick={() => connectToDevice("Drone")}
-              >
-                Connect
-              </button>
+              <p>You are not connected to the drone!</p>
             )}
           </div>
         </div>
