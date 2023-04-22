@@ -35,9 +35,12 @@ def parse_config(config_file):
 
     return config_dict
 
-def run(runtime=10):
+def run(runtime=10, needsPort=False):
     """
     Records and saves data from the Unicorn Board
+
+    runtime: the time taken for recording
+    needsPort: whether we need a serial port or not, the bluetooth dongle functions as bluetooth so likely unneeded
     """
 
     BoardShim.enable_dev_board_logger()
@@ -45,14 +48,14 @@ def run(runtime=10):
     params = BrainFlowInputParams()
 
     config = parse_config("config.dat")
-    port = config["PORT"]
 
-    new_config = input(f"Use new serial port, or used stored serial port? Stored: {port}")
-    if new_config != "":
-        port = new_config
+    if needsPort:
+        port = config["PORT"]
 
-
-    params.serial_port = port
+        new_config = input(f"Use new serial port, or used stored serial port? Stored: {port}")
+        if new_config != "":
+            port = new_config
+        params.serial_port = port
     
     board = BoardShim(BoardIds.UNICORN_BOARD.value, params)
     board.prepare_session()
@@ -72,4 +75,4 @@ def run(runtime=10):
 
 
 if __name__ == "__main__":
-    run(runtime=10)
+    run(runtime=10, needsPort=False)
