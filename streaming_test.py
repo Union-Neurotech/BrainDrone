@@ -1,4 +1,3 @@
-import argparse
 import time
 import os
 from brainflow.board_shim import BoardShim, BrainFlowInputParams, BoardIds, BrainFlowPresets
@@ -12,7 +11,7 @@ https://brainflow.readthedocs.io/en/stable/Examples.html#python
 
 For more details
 
-- Leo
+- Leonardo
 
 """
 
@@ -43,15 +42,15 @@ def run(runtime=10, needsPort=False):
     needsPort: whether we need a serial port or not, the bluetooth dongle functions as bluetooth so likely unneeded
     """
 
-    BoardShim.enable_dev_board_logger()
+    BoardShim.enable_dev_board_logger()         # Enable Internal Brainflow Logger
 
-    params = BrainFlowInputParams()
+    params = BrainFlowInputParams()             # Initialize BrainFlowInputParams container object as 'params'
 
     config = parse_config("config.dat")
 
+    # Only useful if port is needed, may need to remove
     if needsPort:
         port = config["PORT"]
-
         new_config = input(f"Use new serial port, or used stored serial port? Stored: {port}")
         if new_config != "":
             port = new_config
@@ -72,7 +71,6 @@ def run(runtime=10, needsPort=False):
     brainflow.DataFilter.write_file(data, f'{filename}.csv', 'w')  # use 'a' for append mode
 
     print("Data has been saved. Closing.")
-
 
 if __name__ == "__main__":
     run(runtime=10, needsPort=False)
