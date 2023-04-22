@@ -117,7 +117,7 @@ export default function Home() {
             </div>
           ) : (
             <button
-              className="bg-blue-500 text-white font-semibold p-2 rounded-xl w-64 mt-4"
+              className="bg-blue-500 text-white font-semibold p-2 rounded-xl w-64 mt-4 hover:scale-110 duration-150"
               onClick={() => connectToDevice("Headset")}
             >
               Connect
@@ -170,7 +170,7 @@ export default function Home() {
               </div>
             ) : (
               <button
-                className="bg-blue-500 text-white font-semibold p-2 rounded-xl w-64 mt-4"
+                className="bg-blue-500 text-white font-semibold p-2 rounded-xl w-64 mt-4 hover:scale-110 duration-150"
                 onClick={() => connectToDevice("Drone")}
               >
                 Connect
@@ -215,12 +215,7 @@ export default function Home() {
           </button>
         </div>
       </div>
-      <button
-        onClick={() => {
-          doABackFlip();
-        }}
-        className="pl-2 pr-2 h-14 flex flex-row items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-xl hover:scale-110 duration-150  shadow-xl"
-      >
+      <button className="pl-2 pr-2 h-14 flex flex-row items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-xl hover:scale-110 duration-150  shadow-xl">
         <p className="font-bold">Kill Switch</p>
         <div className="h-16 w-16 mt-3">
           <Image src="/warning.png" width={100} height={100} alt="Warning" />
